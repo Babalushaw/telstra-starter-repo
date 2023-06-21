@@ -8,6 +8,7 @@ public class SimCardActivator {
 
     public static void main(String[] args) {
         SpringApplication.run(SimCardActivator.class, args);
+
     }
 
 }
