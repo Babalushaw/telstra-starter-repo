@@ -13,4 +13,6 @@ import org.springframework.stereotype.Service;
 @Repository
 public interface SimCardService {
     void addSimCardDetails(SimCard simCard);
+
+    Object getSimDetails(Long simId);
 }

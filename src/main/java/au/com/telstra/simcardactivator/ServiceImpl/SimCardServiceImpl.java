@@ -12,8 +12,10 @@ import au.com.telstra.simcardactivator.repository.SimCardRepository;
 import au.com.telstra.simcardactivator.service.SimCardService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 @Slf4j
@@ -39,6 +41,29 @@ public class SimCardServiceImpl implements SimCardService {
             log.info(simCardEntity.getSimCardId() +" is added successfully" );
         }catch(Exception e){
             log.info("server not available");
+        }
+    }
+
+    /**
+     *
+     * @param simId
+     * @return simcard
+     */
+    @Override
+    public Object getSimDetails(Long simId) {
+        try{
+            Optional<SimCardEntity> simCard=simCardRepository.findById(simId);
+            if(simCard!=null){
+                SimCardEntity simCardEntity=simCard.get();
+                SimCard simCard1=new SimCard();
+                simCard1.setIccid(simCardEntity.getIccid());
+                simCard1.setCustomerEmail(simCardEntity.getCustomerEmail());
+                simCard1.setActive(simCard1.isActive());
+                return simCard1;
+            }
+            return "sim card details not found";
+        }catch(Exception e){
+            return "server not available";
         }
     }
 }
