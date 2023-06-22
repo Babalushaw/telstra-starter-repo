@@ -10,8 +10,10 @@ package au.com.telstra.simcardactivator.component;
 
 import au.com.telstra.simcardactivator.Foundation.ActuationResult;
 import au.com.telstra.simcardactivator.Foundation.SimCard;
+import au.com.telstra.simcardactivator.service.SimCardService;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
@@ -22,7 +24,8 @@ import org.springframework.web.client.RestTemplate;
 public class SimCardActuationHandler {
     private final RestTemplate restTemplate;
     private final String activationUrl="http://localhost:8444/actuate";
-
+    @Autowired
+    private SimCardService simCardService;
     public SimCardActuationHandler(RestTemplateBuilder builder) {
         this.restTemplate = builder.build();
     }
@@ -36,9 +39,13 @@ public class SimCardActuationHandler {
      */
     public String actuateSimCard(SimCard simCard){
         try{
-            String result=restTemplate.postForObject(activationUrl,simCard, ActuationResult.class).isSuccess()==true ?"sucess":"failed";
+
+            Boolean result=restTemplate.postForObject(activationUrl,simCard, ActuationResult.class).isSuccess();
+            if(result==true){
+                simCardService.addSimCardDetails(simCard);
+            }
             log.info(simCard.getIccid()+ " successfully activate");
-            return result;
+            return result==true? "success" : "failed";
         }catch(Exception e){
             return "server not available";
         }

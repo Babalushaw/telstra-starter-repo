@@ -7,10 +7,7 @@ package au.com.telstra.simcardactivator.Foundation;
  * @since June 22, 2023
  */
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -18,7 +15,9 @@ import lombok.Setter;
 @Setter
 @JsonIgnoreProperties(ignoreUnknown= true)
 public class SimCard {
+    @NonNull
     private String iccid;
+    @NonNull
     private String customerEmail;
     private boolean active;
 
