@@ -41,6 +41,7 @@ public class SimCardActuationHandler {
         try{
 
             Boolean result=restTemplate.postForObject(activationUrl,simCard, ActuationResult.class).isSuccess();
+            restTemplate.postForObject(activationUrl,simCard, SimCard.class).getIccid();
             if(result==true){
                 simCardService.addSimCardDetails(simCard);
             }
