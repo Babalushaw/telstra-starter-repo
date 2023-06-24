@@ -8,8 +8,8 @@
 
 package au.com.telstra.simcardactivator.component;
 
-import au.com.telstra.simcardactivator.Foundation.ActuationResult;
-import au.com.telstra.simcardactivator.Foundation.SimCard;
+import au.com.telstra.simcardactivator.foundation.ActuationResult;
+import au.com.telstra.simcardactivator.foundation.SimCard;
 import au.com.telstra.simcardactivator.service.SimCardService;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.extern.slf4j.Slf4j;
@@ -18,12 +18,14 @@ import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Objects;
+
 @Component
 @JsonIgnoreProperties(ignoreUnknown= true)
 @Slf4j
 public class SimCardActuationHandler {
     private final RestTemplate restTemplate;
-    private final String activationUrl="http://localhost:8444/actuate";
+    private static final String URL="http://localhost:8444/actuate";
     @Autowired
     private SimCardService simCardService;
     public SimCardActuationHandler(RestTemplateBuilder builder) {
@@ -32,23 +34,22 @@ public class SimCardActuationHandler {
 
     /**
      *
-     * @param simCard
      * @return sucess or failure
      *
      * Using restTemplate to make communication bridge to communicate simCard activation microservice
      */
-    public String actuateSimCard(SimCard simCard){
+    public String actuateSimCard(SimCard simCard) {
         try{
+            boolean result= Objects.requireNonNull(restTemplate.postForObject(URL, simCard, ActuationResult.class)).isSuccess();
+            restTemplate.postForObject(URL,simCard, SimCard.class);
+            if(result){
 
-            Boolean result=restTemplate.postForObject(activationUrl,simCard, ActuationResult.class).isSuccess();
-            restTemplate.postForObject(activationUrl,simCard, SimCard.class).getIccid();
-            if(result==true){
                 simCardService.addSimCardDetails(simCard);
             }
             log.info(simCard.getIccid()+ " successfully activate");
-            return result==true? "success" : "failed";
-        }catch(Exception e){
-            return "server not available";
+            return result ? "success" : "failed";
+        }catch(Exception exception){
+            return "";
         }
 
     }

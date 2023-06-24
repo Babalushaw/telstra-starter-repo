@@ -1,4 +1,4 @@
-package au.com.telstra.simcardactivator.Foundation;
+package au.com.telstra.simcardactivator.foundation;
 
 /**
  * @Copyright
@@ -15,9 +15,7 @@ import lombok.*;
 @Setter
 @JsonIgnoreProperties(ignoreUnknown= true)
 public class SimCard {
-    @NonNull
     private String iccid;
-    @NonNull
     private String customerEmail;
     private boolean active;
 

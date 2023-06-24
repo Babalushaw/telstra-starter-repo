@@ -6,7 +6,7 @@
  */
 package stepDefinitions;
 
-import au.com.telstra.simcardactivator.Foundation.SimCard;
+import au.com.telstra.simcardactivator.foundation.SimCard;
 import au.com.telstra.simcardactivator.SimCardActivator;
 import au.com.telstra.simcardactivator.model.SimCardEntity;
 import au.com.telstra.simcardactivator.service.SimCardService;
@@ -64,7 +64,7 @@ public class SimCardActivatorStepDefinitions {
         ObjectMapper objectMapper=new ObjectMapper();
         Object sim=simCardService.getSimDetails(1L);
         SimCardEntity simCardEntity=objectMapper.convertValue(sim,SimCardEntity.class);
-        Assert.assertEquals(simCardEntity.getIccid(), "1255789453849037777");
+        Assert.assertEquals("1255789453849037777",simCardEntity.getIccid());
     }
 
 }

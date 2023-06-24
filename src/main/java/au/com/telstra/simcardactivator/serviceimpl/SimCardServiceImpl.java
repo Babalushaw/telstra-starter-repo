@@ -4,15 +4,14 @@
  * @author Babalu kumar
  * @since June 22, 2023
  */
-package au.com.telstra.simcardactivator.ServiceImpl;
+package au.com.telstra.simcardactivator.serviceimpl;
 
-import au.com.telstra.simcardactivator.Foundation.SimCard;
+import au.com.telstra.simcardactivator.foundation.SimCard;
 import au.com.telstra.simcardactivator.model.SimCardEntity;
 import au.com.telstra.simcardactivator.repository.SimCardRepository;
 import au.com.telstra.simcardactivator.service.SimCardService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -53,7 +52,7 @@ public class SimCardServiceImpl implements SimCardService {
     public Object getSimDetails(Long simId) {
         try{
             Optional<SimCardEntity> simCard=simCardRepository.findById(simId);
-            if(simCard!=null){
+            if(!simCard.isEmpty()){
                 SimCardEntity simCardEntity=simCard.get();
                 SimCard simCard1=new SimCard();
                 simCard1.setIccid(simCardEntity.getIccid());

@@ -15,6 +15,12 @@
     <description>Microservice responsible for activating Telstra sim cards</description>
     <properties>
         <java.version>11</java.version>
+        <sonar.host.url>http://localhost:9000</sonar.host.url>
+        <sonar.login>sqp_29b925758b91af3b0d18c0d52ec313998060e6ea</sonar.login>
+        <sonar.projectKey>tolstra</sonar.projectKey>
+        <sonar.projectName>tolstra</sonar.projectName>
+        <sonar.projectVersion>1.0</sonar.projectVersion>
+        <sonar.sources>src/main</sonar.sources>
     </properties>
     <dependencies>
         <dependency>
@@ -55,10 +61,17 @@
             <scope>test</scope>
         </dependency>
         <dependency>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <version>3.10.1</version>
+            <type>maven-plugin</type>
+        </dependency>
+        <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <optional>true</optional>
         </dependency>
+
     </dependencies>
 
     <build>
@@ -75,8 +88,47 @@
                     </excludes>
                 </configuration>
             </plugin>
-
+<!--            <plugin>-->
+<!--                <groupId>org.sonarsource.scanner.maven</groupId>-->
+<!--                <artifactId>sonar-maven-plugin</artifactId>-->
+<!--                <version>3.8.0.2131</version>-->
+<!--            </plugin>-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.10.1</version>
+            </plugin>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>
+                    jacoco-maven-plugin</artifactId>
+                <version>0.8.8</version>
+                <executions>
+                    <execution>
+                        <id>prepare-agent</id>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>
+                            report</id>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
+<!--        <pluginManagement>-->
+<!--            <plugins>-->
+<!--                <plugin>-->
+<!--                    <groupId>org.sonarsource.scanner.maven</groupId>-->
+<!--                    <artifactId>sonar-maven-plugin</artifactId>-->
+<!--                    <version>3.4.0.905</version>-->
+<!--                </plugin>-->
+<!--            </plugins>-->
+<!--        </pluginManagement>-->
     </build>
 
 </project>

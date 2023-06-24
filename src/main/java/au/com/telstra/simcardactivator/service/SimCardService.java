@@ -6,9 +6,8 @@
  */
 package au.com.telstra.simcardactivator.service;
 
-import au.com.telstra.simcardactivator.Foundation.SimCard;
+import au.com.telstra.simcardactivator.foundation.SimCard;
 import org.springframework.stereotype.Repository;
-import org.springframework.stereotype.Service;
 
 @Repository
 public interface SimCardService {

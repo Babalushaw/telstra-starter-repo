@@ -6,7 +6,7 @@
  */
 package au.com.telstra.simcardactivator.component;
 
-import au.com.telstra.simcardactivator.Foundation.SimCard;
+import au.com.telstra.simcardactivator.foundation.SimCard;
 import au.com.telstra.simcardactivator.service.SimCardService;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.beans.factory.annotation.Autowired;

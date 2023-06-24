@@ -1,0 +1,12 @@
+sonar:
+  projectKey: tolstra
+  projectName: tolstra
+  host:
+    url: http://localhost:9000
+  login: sqp_29b925758b91af3b0d18c0d52ec313998060e6ea
+  java:
+    binaries: src
+  language: java
+  sourceEncoding: UTF-8
+
+#  sqp_29b925758b91af3b0d18c0d52ec313998060e6ea
